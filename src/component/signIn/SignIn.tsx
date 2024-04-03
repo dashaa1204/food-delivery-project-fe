@@ -11,7 +11,6 @@ const SignIn = () => {
     fetch("http://localhost:3001/api/login", {
       method: "POST",
       body: JSON.stringify(login),
-      mode: `no-cors`,
       headers: { "Content-Type": "application/json" },
     });
   };

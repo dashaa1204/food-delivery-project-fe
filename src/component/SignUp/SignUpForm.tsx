@@ -4,35 +4,59 @@ import {
   FormControl,
   FormControlLabel,
   Input,
-  InputLabel,
   Stack,
   Typography,
 } from "@mui/material";
 import PasswordIcon from "../icons/PasswordIcon";
+import { useRouter } from "next/router";
 // import { useState } from "react";
 const formdata = [
-  { name: "Нэр", placeholder: "Нэрээ оруулна уу", id: "name" },
-  { name: "И-мэйл", placeholder: "И-мэйл хаягаа оруулна уу", id: "email" },
+  { title: "Нэр", placeholder: "Нэрээ оруулна уу", id: "name", name: "name" },
   {
-    name: "Хаяг",
-    placeholder: "Та хаягаа оруулна уу",
-    id: "adress",
+    title: "И-мэйл",
+    placeholder: "И-мэйл хаягаа оруулна уу",
+    id: "email",
+    name: "email",
   },
   {
-    name: "Нууц үг",
+    title: "Хаяг",
+    placeholder: "Та хаягаа оруулна уу",
+    id: "adress",
+    name: "adress",
+  },
+  {
+    title: "Нууц үг",
     placeholder: "Нууц үгээ оруулна уу",
     id: "password",
     icon: <PasswordIcon />,
+    name: "password",
   },
   {
-    name: "Нууц үг давтах",
+    title: "Нууц үг давтах",
     placeholder: "Нууц үгээ оруулна уу",
-    id: "password",
+    id: "repassword",
+    name: "repassword",
     icon: <PasswordIcon />,
   },
 ];
 
 const SignUpForum = () => {
+  const router = useRouter();
+  const handler = (e: any) => {
+    e.preventDefault();
+    const data = {
+      name: e.target.name.value,
+      adress: e.target.adress.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    fetch("http://localhost:3001/api/register", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+    router.push("/");
+  };
   // [check, setCheck] = useState("");
   // [button, setButton] = useState("");
   // function buttonHandler() {
@@ -48,33 +72,38 @@ const SignUpForum = () => {
     >
       <Stack width={"448px"} p={8} gap={"48px"}>
         <Typography>Бүртгүүлэх</Typography>
-        <form>
+        <form onSubmit={handler}>
           {formdata.map((e, key) => {
             return (
               <FormControl key={key} fullWidth>
                 <Stack gap={"4px"} alignItems={"stretch"}>
-                  <Typography fontSize={"8px"}>{e.name}</Typography>
+                  <Typography fontSize={"8px"}>{e.title}</Typography>
                   <Stack
                     direction={"row"}
                     justifyContent={"space-between"}
                     alignItems={"center"}
                   >
-                    <InputLabel>{e.placeholder}</InputLabel>
-                    <Input id={e.id} name={e.id} required type={e.id} />
+                    <Input
+                      id={e.id}
+                      name={e.title}
+                      required
+                      type={e.id}
+                      placeholder={e.placeholder}
+                    />
                     <Stack>{e.icon}</Stack>
                   </Stack>
                 </Stack>
               </FormControl>
             );
           })}
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Үйлчилгээний нөхцөл зөвшөөрөх"
+          />
+          <Button variant="contained" type="submit">
+            Бүртгүүлэх
+          </Button>
         </form>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Үйлчилгээний нөхцөл зөвшөөрөх"
-        />
-        <Button variant="contained" disabled>
-          Бүртгүүлэх
-        </Button>
       </Stack>
     </Stack>
   );
