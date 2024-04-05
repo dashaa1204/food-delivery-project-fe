@@ -1,18 +1,28 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import PasswordIcon from "../icons/PasswordIcon";
+import { useRouter } from "next/router";
 
 const SignIn = () => {
-  const handler = (e: any) => {
+  const router = useRouter();
+  const handler = async (e: any) => {
     e.preventDefault();
     const login = {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    fetch("http://localhost:3001/api/login", {
+    const res = await fetch("http://localhost:3001/api/login", {
       method: "POST",
       body: JSON.stringify(login),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Accept: "application.json",
+        "Content-Type": "application/json",
+      },
     });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem("userToken", data.token);
+      router.push("/");
+    }
   };
   return (
     <form onSubmit={handler}>
