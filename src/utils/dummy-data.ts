@@ -63,3 +63,31 @@ export const meals = [
     ],
   },
 ];
+
+export const formdata = [
+  { title: "Нэр", placeholder: "Нэрээ оруулна уу", id: "name", name: "name" },
+  {
+    title: "И-мэйл",
+    placeholder: "И-мэйл хаягаа оруулна уу",
+    id: "email",
+    name: "email",
+  },
+  {
+    title: "Хаяг",
+    placeholder: "Та хаягаа оруулна уу",
+    id: "adress",
+    name: "adress",
+  },
+  {
+    title: "Нууц үг",
+    placeholder: "Нууц үгээ оруулна уу",
+    id: "password",
+    name: "password",
+  },
+  {
+    title: "Нууц үг давтах",
+    placeholder: "Нууц үгээ оруулна уу",
+    id: "password",
+    name: "repassword",
+  },
+];

@@ -1,6 +1,5 @@
-import { ArrowForward } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import HomeModal from "./HomeModal";
 import cartFood from "@/utils/cart-foods";
 
@@ -23,7 +22,7 @@ const CartBackDrop = ({ handleClose }: { handleClose: () => void }) => {
           onClick={handleClose}
           sx={{ backgroundColor: "white", border: "none" }}
         >
-          <ArrowBackIosNewIcon />
+          <ArrowBackIosIcon />
         </Stack>
         <Typography>Таны сагс</Typography>
       </Stack>

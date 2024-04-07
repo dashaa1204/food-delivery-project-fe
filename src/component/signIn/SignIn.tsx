@@ -1,9 +1,12 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
-import PasswordIcon from "../icons/PasswordIcon";
 import { useRouter } from "next/router";
+import { useState, Dispatch } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { BorderAll, SelectAllOutlined } from "@mui/icons-material";
 
 const SignIn = () => {
   const router = useRouter();
+  const [visible, setVisible] = useState<boolean>(false);
   const handler = async (e: any) => {
     e.preventDefault();
     const login = {
@@ -22,8 +25,10 @@ const SignIn = () => {
     if (data.token) {
       localStorage.setItem("userToken", data.token);
       router.push("/");
+    } else {
     }
   };
+
   return (
     <form onSubmit={handler}>
       <Stack gap={"48px"} p={8} mt={20}>
@@ -63,8 +68,16 @@ const SignIn = () => {
                   placeholder="Нууц үг"
                   bgcolor={"#ECF4F3"}
                   width={"90%"}
+                  type={visible ? "text" : "password"}
+                  border={"none"}
+                  boxShadow={"none"}
                 ></Box>
-                <PasswordIcon />
+                <Box component={"span"}>
+                  <FontAwesomeIcon
+                    icon={visible ? "eye" : "eye-slash"}
+                    onClick={() => setVisible(!visible)}
+                  />
+                </Box>
               </Stack>
             </Stack>
           </Stack>

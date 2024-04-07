@@ -9,36 +9,10 @@ import {
 } from "@mui/material";
 import PasswordIcon from "../icons/PasswordIcon";
 import { useRouter } from "next/router";
-// import { useState } from "react";
-const formdata = [
-  { title: "Нэр", placeholder: "Нэрээ оруулна уу", id: "name", name: "name" },
-  {
-    title: "И-мэйл",
-    placeholder: "И-мэйл хаягаа оруулна уу",
-    id: "email",
-    name: "email",
-  },
-  {
-    title: "Хаяг",
-    placeholder: "Та хаягаа оруулна уу",
-    id: "adress",
-    name: "adress",
-  },
-  {
-    title: "Нууц үг",
-    placeholder: "Нууц үгээ оруулна уу",
-    id: "password",
-    icon: <PasswordIcon />,
-    name: "password",
-  },
-  {
-    title: "Нууц үг давтах",
-    placeholder: "Нууц үгээ оруулна уу",
-    id: "repassword",
-    name: "repassword",
-    icon: <PasswordIcon />,
-  },
-];
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { useState, Dispatch } from "react";
+import { formdata } from "@/utils/dummy-data";
 
 const SignUpForum = () => {
   const router = useRouter();
@@ -57,11 +31,8 @@ const SignUpForum = () => {
     });
     router.push("/");
   };
-  // [check, setCheck] = useState("");
-  // [button, setButton] = useState("");
-  // function buttonHandler() {
-  //   setButton("enable");
-  // }
+  const [visible, setVisible] = useState<boolean>(false);
+
   return (
     <Stack
       width={"1440px"}
@@ -87,10 +58,21 @@ const SignUpForum = () => {
                       id={e.id}
                       name={e.title}
                       required
-                      type={e.id}
+                      type={
+                        e.id === "password"
+                          ? visible
+                            ? "text"
+                            : "password"
+                          : "text"
+                      }
                       placeholder={e.placeholder}
                     />
-                    <Stack>{e.icon}</Stack>
+                    {e.id === "password" ? (
+                      <FontAwesomeIcon
+                        icon={visible ? "eye" : "eye-slash"}
+                        onClick={() => setVisible(!visible)}
+                      />
+                    ) : null}
                   </Stack>
                 </Stack>
               </FormControl>

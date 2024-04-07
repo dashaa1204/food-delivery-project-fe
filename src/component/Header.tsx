@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import {
   AppBar,
   Backdrop,
@@ -24,6 +25,7 @@ const pages = [
 ];
 
 const Header = () => {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -48,8 +50,9 @@ const Header = () => {
                 border={"none"}
                 bgcolor={"white"}
                 onClick={() => {
-                  window.location.href = "./";
+                  router.push("/");
                 }}
+                sx={{ cursor: "pointer" }}
               >
                 <MainLogo />
               </Box>
@@ -62,8 +65,9 @@ const Header = () => {
                       bgcolor={"white"}
                       key={key}
                       onClick={() => {
-                        window.location.href = a.page;
+                        router.push(a.page);
                       }}
+                      sx={{ cursor: "pointer" }}
                     >
                       {a.title}
                     </Box>
@@ -103,11 +107,24 @@ const Header = () => {
               border={"none"}
               bgcolor={"#fff"}
               onClick={handleOpen}
+              sx={{ cursor: "pointer" }}
             >
               <CartIcon />
               <Typography>Сагс</Typography>
             </Stack>
-            <Stack direction={"row"} alignItems={"center"} px={2} gap={1}>
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              px={2}
+              gap={1}
+              component={"button"}
+              bgcolor={"#FFF"}
+              border={"none"}
+              onClick={() => {
+                router.push("/sign-in");
+              }}
+              sx={{ cursor: "pointer" }}
+            >
               <SigninIcon />
               <Typography>Нэвтрэх</Typography>
             </Stack>
